@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { LaunchNavigator, LaunchNavigatorOptions  } from '@ionic-native/launch-navigator/ngx';
 
 declare let google: any;
 
@@ -20,7 +21,7 @@ export class Tab3Page {
     lng: 0
   }
 
-  constructor(private geolocation: Geolocation) {
+  constructor(private geolocation: Geolocation, private launchNavigator: LaunchNavigator) {
 
   }
 
@@ -47,6 +48,20 @@ export class Tab3Page {
         window.alert('Directions request failed due to ' + status);
       }
     });
+  }
+
+  navigateLocation() {
+    let options: LaunchNavigatorOptions = { 
+      app: this.launchNavigator.APP.GOOGLE_MAPS,
+      start:[ this.currentLocation.lat, this.currentLocation.lng]
+    };
+    let destination = [50.8503, 4.3517]
+    this.launchNavigator.navigate(destination,options)
+    .then(success =>{
+      console.log(success);
+    },error=>{
+      console.log(error);
+    })
   }
 
 

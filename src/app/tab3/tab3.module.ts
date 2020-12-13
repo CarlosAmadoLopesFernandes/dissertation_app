@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { Tab3Page } from './tab3.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
 
 import { Tab3PageRoutingModule } from './tab3-routing.module';
 
@@ -19,6 +20,9 @@ import { Tab3PageRoutingModule } from './tab3-routing.module';
     Tab3PageRoutingModule,
   ],
   declarations: [Tab3Page],
-  providers: [ Geolocation ]
+  providers: [ 
+    Geolocation, 
+    LaunchNavigator
+  ]
 })
 export class Tab3PageModule {}
