@@ -28,6 +28,8 @@ export class ParkingService {
       date: date.getFullYear() + "-" + this.pad(date.getMonth()) + "-" + this.pad(date.getDate()) + " " + this.pad(date.getHours()) + ":" + this.pad(date.getMinutes()) + ":" + this.pad(date.getSeconds())
     }
 
+    console.log(date);
+
     return this.http.post('https://cors-anywhere.herokuapp.com/http://35.197.237.135:60001/10parks/scenario1/random_forest', data)
       .pipe(
         retry(1),

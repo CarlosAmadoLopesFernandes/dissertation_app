@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>tab4</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <div *ngIf="step==1">
+      <ion-row center>
+        <ion-col>
+          <form *ngIf="places == null; else placesList" [formGroup]="placesSearchForm" (ngSubmit)="getPlacesByText()">
+            <ion-row>
+              <ion-col>
+                <ion-searchbar formControlName="searchText" showCancelButton="always"></ion-searchbar>
+              </ion-col>
+            </ion-row>
+            <ion-row class="ion-justify-content-center">
+              <ion-button [disabled]="!placesSearchForm.valid" type="submit" color="primary">Submit</ion-button>
+            </ion-row>
+          </form>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div *ngIf="step==2">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Latitude: {{places[selectedPlaceIndex]['geometry']['location']['lat']}}</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>Longitude: {{places[selectedPlaceIndex]['geometry']['location']['lng']}}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <form *ngIf="!showParkingInfo; else parkingList" [formGroup]="parkingForm" (ngSubmit)="getParksData()">
+            <ion-row>
+              <ion-col>
+                <ion-datetime display-format="YYYY-MM-DD" picker-format="YYYY-MM-DD" formControlName="date"
+                  display-timezone="utc" placeholder="Insert a arrive date"></ion-datetime>
+              </ion-col>
+              <ion-col>
+                <ion-datetime display-format="HH:mm" picker-format="HH:mm" formControlName="time" display-timezone="utc"
+                  placeholder="Insert a arrive time"></ion-datetime>
+              </ion-col>
+
+            </ion-row>
+            <ion-row class="ion-justify-content-center">
+              <ion-button [disabled]="!parkingForm.valid" type="submit" color="primary">Submit</ion-button>
+            </ion-row>
+
+            <ion-item>
+              date: {{ parkingForm.get('date').value }}
+            </ion-item>
+            <ion-item>
+              time: {{ parkingForm.get('time').value }}
+            </ion-item>
+          </form>
+        </ion-col>
+      </ion-row>
+         
+    
+    </div>
+    <div *ngIf="step==3">
+      <ion-row>
+        <ion-col>
+          STEP3
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-col>
+      <ion-button [disabled]="step==1" (click)="previous()" color="primary">Previous</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="next()" color="primary">Next</ion-button>
+    </ion-col>
+  </ion-toolbar>
+</ion-footer>
+
+
+
+
+<ng-template #placesList>
+  <ion-title>Select your destination</ion-title>
+  <ion-list>
+    <ion-card [class.selected]="i === selectedPlaceIndex" (click)="selectPlace(place, i)"
+      *ngFor="let place of places; let i = index">
+      <ion-card-header>
+        <ion-card-title>{{place.name}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row>
+          <ion-col>
+            {{place.formatted_address}}
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+
+    </ion-card>
+  </ion-list>
+
+</ng-template>
+
