@@ -37,7 +37,7 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <form *ngIf="!showParkingInfo; else parkingList" [formGroup]="parkingForm" (ngSubmit)="getParksData()">
+          <form *ngIf="parks == null; else parkingList" [formGroup]="parkingForm" (ngSubmit)="getParksData()">
             <ion-row>
               <ion-col>
                 <ion-datetime display-format="YYYY-MM-DD" picker-format="YYYY-MM-DD" formControlName="date"
@@ -52,25 +52,11 @@
             <ion-row class="ion-justify-content-center">
               <ion-button [disabled]="!parkingForm.valid" type="submit" color="primary">Submit</ion-button>
             </ion-row>
-
-            <ion-item>
-              date: {{ parkingForm.get('date').value }}
-            </ion-item>
-            <ion-item>
-              time: {{ parkingForm.get('time').value }}
-            </ion-item>
           </form>
         </ion-col>
       </ion-row>
          
     
-    </div>
-    <div *ngIf="step==3">
-      <ion-row>
-        <ion-col>
-          STEP3
-        </ion-col>
-      </ion-row>
     </div>
   </ion-grid>
 
@@ -83,8 +69,11 @@
       <ion-button [disabled]="step==1" (click)="previous()" color="primary">Previous</ion-button>
     </ion-col>
     <ion-col>
-      <ion-button (click)="next()" color="primary">Next</ion-button>
+      <ion-button *ngIf="step != 2" (click)="next()" color="primary">Next</ion-button>
+      <ion-button *ngIf="step == 2"  [disabled]="selectedParkIndex" (click)="go()" color="primary">GO</ion-button>
     </ion-col>
+
+  
   </ion-toolbar>
 </ion-footer>
 
@@ -109,6 +98,44 @@
 
     </ion-card>
   </ion-list>
-
 </ng-template>
 
+
+
+<ng-template #parkingList>
+  <ion-title>Select a park from list according your preferences</ion-title>
+  <ion-card [class.selected]="k === selectedParkIndex" (click)="selectPark(park, k)" *ngFor="let park of parks; let k = index">
+    <ion-card-header>
+      <ion-card-title>{{park.park_group_name}} : {{park.park_name}}</ion-card-title>
+      <ion-card-subtitle>Address: {{park.address}}</ion-card-subtitle>
+      <ion-card-subtitle>Postal Code: {{park.postal_code}}</ion-card-subtitle>
+      <ion-card-subtitle>House Number: {{park.house_number}}</ion-card-subtitle>
+
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <b>Occupation</b>: {{park.prediction}}
+        </ion-col>
+      </ion-row>
+      <hr>
+      <ion-row>
+        <ion-col>
+          <b>Price/h</b>: {{park.price}}€
+        </ion-col>
+      </ion-row>
+      <hr>
+      <ion-row>
+        <ion-col>
+          <b>Walking time</b>: {{park.distance.duration.text}}
+        </ion-col>
+        <ion-col>
+          <b>Distance</b>: {{park.distance.distance.text}}
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+
+</ng-template>

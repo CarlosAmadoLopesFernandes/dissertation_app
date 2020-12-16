@@ -1,15 +1,16 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LaunchNavigator, LaunchNavigatorOptions  } from '@ionic-native/launch-navigator/ngx';
+import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 
 declare let google: any;
 
 @Component({
-  selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss']
+  selector: 'app-map',
+  templateUrl: 'map.page.html',
+  styleUrls: ['map.page.scss']
 })
-export class Tab3Page {
+export class MapPage {
 
   map: any;
 
@@ -20,10 +21,21 @@ export class Tab3Page {
     lat: 0,
     lng: 0
   }
-
-  constructor(private geolocation: Geolocation, private launchNavigator: LaunchNavigator) {
-
+  destinationLocation: any = {
+    lat: 0,
+    lng: 0
   }
+
+  constructor(
+    private geolocation: Geolocation,
+    private launchNavigator: LaunchNavigator,
+    private router: Router
+  ) {
+    console.log(this.router.getCurrentNavigation().extras.state);
+    this.destinationLocation.lat = this.router.getCurrentNavigation().extras.state.latitude;
+    this.destinationLocation.lng = this.router.getCurrentNavigation().extras.state.longitude;
+  }
+
 
   ionViewDidEnter(): void {
     this.geolocation.getCurrentPosition().then((resp) => {
@@ -39,7 +51,7 @@ export class Tab3Page {
     const that = this;
     this.directionsService.route({
       origin: this.currentLocation,
-      destination: new google.maps.LatLng(50.8503, 4.3517),
+      destination: new google.maps.LatLng(this.destinationLocation.lat, this.destinationLocation.lng),
       travelMode: 'DRIVING'
     }, (response, status) => {
       if (status === 'OK') {
@@ -55,7 +67,7 @@ export class Tab3Page {
       app: this.launchNavigator.APP.GOOGLE_MAPS,
       start:[ this.currentLocation.lat, this.currentLocation.lng]
     };
-    let destination = [50.8503, 4.3517]
+    let destination = [this.destinationLocation.lat, this.destinationLocation.lng]
     this.launchNavigator.navigate(destination,options)
     .then(success =>{
       console.log(success);

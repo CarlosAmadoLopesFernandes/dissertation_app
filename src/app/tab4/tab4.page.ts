@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
 import { GooglePlacesService } from 'src/app/services/google-places.service';
@@ -13,8 +13,8 @@ import { Loader } from '../utils/loader';
 })
 export class Tab4Page implements OnInit {
   step: string;
-  //places: Array<any> = null;
-  places: Array<any> = [
+  places: Array<any> = null;
+  /*places: Array<any> = [
     {
        "formatted_address" : "Praça de Almeida Garrett, 4000-069 Porto, Portugal",
        "geometry" : {
@@ -645,15 +645,17 @@ export class Tab4Page implements OnInit {
        },
        "name" : "São Bento do Sapucaí"
     }
- ];
+ ];*/
   selectedPlaceIndex: number = null;
   placesSearchForm: FormGroup;
   parkingForm: FormGroup;
 
-  showParkingInfo: Boolean = false;
-  parkingArray;
+
+  parks: any = null;
+  selectedParkIndex: number = null;
 
 
+ 
   constructor(private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
@@ -669,6 +671,8 @@ export class Tab4Page implements OnInit {
       date: [null, Validators.required],
       time: [null, Validators.required]
     })
+
+      
   }
 
   ngOnInit() {
@@ -709,11 +713,13 @@ export class Tab4Page implements OnInit {
   }
 
   getPlacesByText() {
+   this.loader.initloading("");
     this.googlePlacesService.getPlacesByText(this.placesSearchForm.get('searchText').value).subscribe(x => {
       console.log(x);
       if (x['status'] == 'OK') {
         this.places = x['candidates'];
       }
+      this.loader.closeloading();
     })
   }
 
@@ -740,11 +746,23 @@ export class Tab4Page implements OnInit {
     var d = new Date(finalDateString)
 
     this.parkingService.getParkInfos(latitude, longitude, d).subscribe(response => {
-
-      this.showParkingInfo = true;
-      this.parkingArray = response;
+      console.log(response);
+      //this.parks = response.filter(res => res.prediction != "-")
+      this.parks = response;
       this.loader.closeloading();
     });
   }
 
+  selectPark(park, index) {
+     this.selectedParkIndex = index;
+  }
+
+  go() {
+     console.log('gogoog');
+     let park_latitude = this.parks[this.selectedParkIndex].latitude;
+     let park_longitude = this.parks[this.selectedParkIndex].longitude;
+     this.router.navigateByUrl('/map', { state: { latitude: park_latitude, longitude: park_longitude } });
+   }
+
+ 
 }
