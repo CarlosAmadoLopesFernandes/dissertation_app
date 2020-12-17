@@ -41,25 +41,29 @@ export class MapPage {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.currentLocation.lat = resp.coords.latitude;
       this.currentLocation.lng = resp.coords.longitude;
-    });
-    const map = new google.maps.Map(this.mapRef.nativeElement, {
-      zoom: 7,
-      center: {lat: 41.85, lng: -87.65}
-    });
-    this.directionsDisplay.setMap(map);
 
-    const that = this;
-    this.directionsService.route({
-      origin: this.currentLocation,
-      destination: new google.maps.LatLng(this.destinationLocation.lat, this.destinationLocation.lng),
-      travelMode: 'DRIVING'
-    }, (response, status) => {
-      if (status === 'OK') {
-        that.directionsDisplay.setDirections(response);
-      } else {
-        window.alert('Directions request failed due to ' + status);
-      }
+      const map = new google.maps.Map(this.mapRef.nativeElement, {
+        zoom: 7,
+        center: {lat: 41.85, lng: -87.65}
+      });
+      this.directionsDisplay.setMap(map);
+  
+      const that = this;
+      this.directionsService.route({
+        origin: this.currentLocation,
+        destination: new google.maps.LatLng(this.destinationLocation.lat, this.destinationLocation.lng),
+        travelMode: 'DRIVING'
+      }, (response, status) => {
+        console.log("response", response);
+        console.log("status", status);
+        if (status === 'OK') {
+          that.directionsDisplay.setDirections(response);
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+      });
     });
+    
   }
 
   navigateLocation() {

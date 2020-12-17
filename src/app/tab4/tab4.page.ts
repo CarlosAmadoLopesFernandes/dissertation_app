@@ -736,7 +736,7 @@ export class Tab4Page implements OnInit {
     let latitude = this.places[this.selectedPlaceIndex]['geometry']['location']['lat'];
     let longitude = this.places[this.selectedPlaceIndex]['geometry']['location']['lng'];
     let dateObject = new Date(this.parkingForm.get('date').value);
-    let dateString = dateObject.toLocaleDateString();
+    let dateString = dateObject.toLocaleDateString('en-US');
     console.log(dateString);
 
     let dateObject2 = new Date(this.parkingForm.get('time').value);
@@ -744,7 +744,7 @@ export class Tab4Page implements OnInit {
     let finalDateString = dateString + " " + dateString2;
     console.log(finalDateString);
     var d = new Date(finalDateString)
-
+      console.log("dddd" + d);
     this.parkingService.getParkInfos(latitude, longitude, d).subscribe(response => {
       console.log(response);
       //this.parks = response.filter(res => res.prediction != "-")
