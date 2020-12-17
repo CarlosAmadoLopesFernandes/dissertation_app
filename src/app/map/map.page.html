@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-        IOParking
+      IOParking
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,10 +14,16 @@
   </ion-header>
   <div #map id="map">
   </div>
-  <ion-row class="ion-justify-content-center">
-    <ion-button id="navigate-btn" (click)="navigateLocation()" color="primary">INIT</ion-button>
-  </ion-row>
-
-
   <!--<app-explore-container name="Tab 3 page"></app-explore-container>-->
 </ion-content>
+
+<ion-footer>
+  <ion-row class="ion-justify-content-center">
+    <ion-col>
+      <ion-button id="reset-btn" (click)="reset()" color="primary">RESET</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button id="navigate-btn" (click)="navigateLocation()" color="primary">GO</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

@@ -78,5 +78,9 @@ export class MapPage {
     })
   }
 
+  reset() {
+    this.router.navigateByUrl('/tab4');
+  }
+
 
 }

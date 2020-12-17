@@ -1,3 +1,9 @@
 .selected {
     border: 1px solid var(--ion-color-success)
 }
+
+#place-image {
+    height: 35vh;
+    width: auto;
+    object-fit: cover;
+}

@@ -26,14 +26,17 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-label>Latitude: {{places[selectedPlaceIndex]['geometry']['location']['lat']}}</ion-label>
+            <ion-label>Place Name: {{places[selectedPlaceIndex]['name']}}</ion-label>
           </ion-item>
         </ion-col>
         <ion-col>
           <ion-item>
-            <ion-label>Longitude: {{places[selectedPlaceIndex]['geometry']['location']['lng']}}</ion-label>
+            <ion-label>Address: {{places[selectedPlaceIndex]['formatted_address']}}</ion-label>
           </ion-item>
         </ion-col>
+      </ion-row>
+      <ion-row *ngIf="selectedPlacePhoto != null">
+        <ion-img id="place-image" [src]="selectedPlacePhoto"></ion-img>
       </ion-row>
       <ion-row>
         <ion-col>
