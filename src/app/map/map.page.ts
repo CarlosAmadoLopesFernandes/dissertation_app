@@ -54,8 +54,6 @@ export class MapPage {
         destination: new google.maps.LatLng(this.destinationLocation.lat, this.destinationLocation.lng),
         travelMode: 'DRIVING'
       }, (response, status) => {
-        console.log("response", response);
-        console.log("status", status);
         if (status === 'OK') {
           that.directionsDisplay.setDirections(response);
         } else {

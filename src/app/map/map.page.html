@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+        IOParking
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,14 +9,15 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
+      <ion-title size="large">IOParking</ion-title>
     </ion-toolbar>
   </ion-header>
   <div #map id="map">
   </div>
-  <ion-button id="navigate-btn" (click)="navigateLocation()" color="primary">INIT</ion-button>
+  <ion-row class="ion-justify-content-center">
+    <ion-button id="navigate-btn" (click)="navigateLocation()" color="primary">INIT</ion-button>
+  </ion-row>
 
 
- 
   <!--<app-explore-container name="Tab 3 page"></app-explore-container>-->
 </ion-content>

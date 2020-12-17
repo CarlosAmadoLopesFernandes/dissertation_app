@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>tab4</ion-title>
+    <ion-title>IOParking</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -71,8 +71,8 @@
       <ion-button [disabled]="step==1" (click)="previous()" color="primary">Previous</ion-button>
     </ion-col>
     <ion-col col-6>
-      <ion-button *ngIf="step != 2" (click)="next()" color="primary">Next</ion-button>
-      <ion-button *ngIf="step == 2"  [disabled]="selectedParkIndex" (click)="go()" color="primary">GO</ion-button>
+      <ion-button *ngIf="step != 2" [disabled]="nextDisabled()" (click)="next()" color="primary">Next</ion-button>
+      <ion-button *ngIf="step == 2"  [disabled]="goDisabled()" (click)="go()" color="primary">GO</ion-button>
     </ion-col>
   </ion-row>
 </ion-grid>

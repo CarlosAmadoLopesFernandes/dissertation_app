@@ -748,20 +748,35 @@ export class Tab4Page implements OnInit {
     this.parkingService.getParkInfos(latitude, longitude, d).subscribe(response => {
       console.log(response);
       //this.parks = response.filter(res => res.prediction != "-")
-      this.parks = response;
+      let x: any = response;
+      this.parks = x.filter(res => res.prediction != "-");
       this.loader.closeloading();
     });
   }
 
   selectPark(park, index) {
      this.selectedParkIndex = index;
+     console.log(this.selectedParkIndex);
   }
 
   go() {
-     console.log('gogoog');
      let park_latitude = this.parks[this.selectedParkIndex].latitude;
      let park_longitude = this.parks[this.selectedParkIndex].longitude;
      this.router.navigateByUrl('/map', { state: { latitude: park_latitude, longitude: park_longitude } });
+   }
+
+   nextDisabled() {
+      if (this.step == "1" && this.selectedPlaceIndex == null) return true;
+
+   }
+
+   previousDisabeld() {
+
+   }
+
+   goDisabled() {
+      if (this.selectedParkIndex == null) return true;
+      else return false;
    }
 
  
