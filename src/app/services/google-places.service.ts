@@ -26,8 +26,7 @@ export class GooglePlacesService {
       .set('key', 'AIzaSyAdTtHN9lGip2TNWhUUPoPAL1kVWZCqehY') //
     };
     
-
-
+    //return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json', httpOptions)
     return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json', httpOptions)
 
   }

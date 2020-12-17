@@ -717,6 +717,7 @@ export class Tab4Page implements OnInit {
     this.googlePlacesService.getPlacesByText(this.placesSearchForm.get('searchText').value).subscribe(x => {
       console.log(x);
       if (x['status'] == 'OK') {
+         //this.places = x['results']
         this.places = x['candidates'];
       }
       this.loader.closeloading();
