@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { retry, catchError, mergeAll } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -44,22 +42,6 @@ export class GooglePlacesService {
       .set('photoreference', reference)
       .set('key', 'AIzaSyAdTtHN9lGip2TNWhUUPoPAL1kVWZCqehY') //
 
-
-    /*let httpOptions2 = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'X-Requested-With': "XMLHttpRequest",
-        "Content-Type": "image/jpeg"
-      }),
-      responseType: 'blob',
-      params: new HttpParams()
-        .set('maxwidth', '400')
-        .set('photoreference', reference)
-        .set('key', 'AIzaSyAdTtHN9lGip2TNWhUUPoPAL1kVWZCqehY') //
-    };*/
-
-
-    //return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json', httpOptions)
     return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo', { headers: headers, params: params, responseType: 'blob' });
   }
 }

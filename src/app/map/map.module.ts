@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MapPage } from './map.page';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
 
@@ -15,7 +14,6 @@ import { MapPageRoutingModule } from './map-routing.module';
     IonicModule,
     CommonModule,
     FormsModule,
-    ExploreContainerComponentModule,
     RouterModule.forChild([{ path: '', component: MapPage }]),
     MapPageRoutingModule,
   ],
