@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { retry, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { CORS_ANYWHERE_URL, AI_URL } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,6 @@ import { Observable, throwError } from 'rxjs';
 export class ParkingService {
 
   constructor(private http: HttpClient) {}
-
-  test() {
-    this.http.get('https://cors-anywhere.herokuapp.com/http://35.197.237.135:60001/').subscribe(x => {
-      console.log(x);
-    })
-  }
 
 
   pad(n) {
@@ -30,7 +25,7 @@ export class ParkingService {
 
     console.log(date);
 
-    return this.http.post('https://cors-anywhere.herokuapp.com/http://35.197.237.135:60001/10parks/scenario1/random_forest', data)
+    return this.http.post(CORS_ANYWHERE_URL + AI_URL, data)
       .pipe(
         retry(1),
         catchError(this.handleError)

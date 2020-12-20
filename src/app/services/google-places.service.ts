@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { CORS_ANYWHERE_URL, GOOGLE_CONFIGS } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +23,11 @@ export class GooglePlacesService {
         .set('input', text)
         .set('inputtype', 'textquery')
         .set('fields', 'photos,formatted_address,name,rating,opening_hours,geometry')
-        .set('key', 'AIzaSyAdTtHN9lGip2TNWhUUPoPAL1kVWZCqehY') //
+        .set('key', GOOGLE_CONFIGS.places_api_key) //
     };
 
     //return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json', httpOptions)
-    return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json', httpOptions1)
+    return this.http.get(CORS_ANYWHERE_URL + GOOGLE_CONFIGS.find_place_url, httpOptions1)
   }
 
   getPlacePhotoByReference(reference: string) {
@@ -40,8 +42,8 @@ export class GooglePlacesService {
     let params = new HttpParams()
       .set('maxwidth', '400')
       .set('photoreference', reference)
-      .set('key', 'AIzaSyAdTtHN9lGip2TNWhUUPoPAL1kVWZCqehY') //
+      .set('key', GOOGLE_CONFIGS.places_api_key) //
 
-    return this.http.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo', { headers: headers, params: params, responseType: 'blob' });
+    return this.http.get(CORS_ANYWHERE_URL + GOOGLE_CONFIGS.place_photo_url, { headers: headers, params: params, responseType: 'blob' });
   }
 }
