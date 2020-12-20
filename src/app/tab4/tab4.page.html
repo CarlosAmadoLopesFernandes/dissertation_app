@@ -10,6 +10,8 @@
       <ion-row center>
         <ion-col>
           <form *ngIf="places == null; else placesList" [formGroup]="placesSearchForm" (ngSubmit)="getPlacesByText()">
+            <ion-row class="ion-justify-content-center"><ion-label>Type your destination</ion-label></ion-row>
+            
             <ion-row>
               <ion-col>
                 <ion-searchbar formControlName="searchText" showCancelButton="always"></ion-searchbar>
@@ -86,7 +88,10 @@
 
 
 <ng-template #placesList>
-  <ion-title>Select your destination</ion-title>
+  <ion-row class="ion-justify-content-center">
+    <ion-label>Select your destination</ion-label>
+  </ion-row>
+
   <ion-list>
     <ion-card [class.selected]="i === selectedPlaceIndex" (click)="selectPlace(place, i)"
       *ngFor="let place of places; let i = index">
@@ -108,7 +113,10 @@
 
 
 <ng-template #parkingList>
-  <ion-title>Select a park from list according your preferences</ion-title>
+  <ion-row class="ion-justify-content-center">
+    <ion-label>Select a park from list according your preferences</ion-label>
+  </ion-row>
+
   <ion-card [class.selected]="k === selectedParkIndex" (click)="selectPark(park, k)" *ngFor="let park of parks; let k = index">
     <ion-card-header>
       <ion-card-title>{{park.park_group_name}} : {{park.park_name}}</ion-card-title>
