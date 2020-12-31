@@ -20,7 +20,7 @@ export class ParkingService {
     let data = {
       latitude: latitude,
       longitude: longitude,
-      date: date.getFullYear() + "-" + this.pad(date.getMonth()) + "-" + this.pad(date.getDate()) + " " + this.pad(date.getHours()) + ":" + this.pad(date.getMinutes()) + ":" + this.pad(date.getSeconds())
+      date: date.getFullYear() + "-" + this.pad(date.getMonth() + 1) + "-" + this.pad(date.getDate()) + " " + this.pad(date.getHours()) + ":" + this.pad(date.getMinutes()) + ":" + this.pad(date.getSeconds())
     }
 
     console.log(date);
